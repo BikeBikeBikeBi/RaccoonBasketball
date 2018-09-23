@@ -54,8 +54,7 @@ end
 function _update()
 move_player()
 if basketball.launched == true then
-	basketball.x+=10
-	basketball.y+=10
+--this is where we move the basketball
 	else 
 		if basketball.inhands == true then
 		updatebasketballlocation()
@@ -66,6 +65,15 @@ end
 function _draw()
 cls()
 sspr(8,0,16,16,player.x,player.y,16,16)
+if basketball.launched == true then
+for t=0,.1,0.005 do
+basketball.x = (player.x-30)+ (t*500)+50
+basketball.y = (player.y-40)+ (sin(t*5)*25)+50
+circfill(basketball.x,basketball.y,4)
+flip()
+end
+basketball.launched = false
+end
 if drawbasketball == true then
 draw_basketball()
 end
