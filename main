@@ -1,0 +1,72 @@
+function _init()
+player={}
+player.x=64
+player.y=64
+basketball={}
+basketball.x=player.x
+basketball.y=player.y
+basketball.timer=0
+basketball.inhands = true
+basketball.launched = false
+end
+
+function move_player()
+if (btn(0)) player.x-=1
+if (btn(1)) player.x+=1
+if (btn(2)) player.y-=1
+if (btn(3)) player.y+=1
+if (btn(4)) drawthebasketball()
+if canbeshot == true then	
+	if (btn(5)) then 
+		shootthebasketball() 
+	end
+end
+basketball.x=player.x
+basketball.y=player.y
+end
+
+function drawthebasketball()
+drawbasketball=true
+end
+
+function updatebasketballlocation()
+--basketball.x=player.x+15
+--basketball.y=player.y+10
+end
+
+function draw_basketball()
+circfill(basketball.x+15,basketball.y+12,4,5)
+basketball.timer+=1
+canbeshot=true
+	if basketball.timer>60 then
+		basketball.timer=0
+		drawbasketball=false
+		basketball.inhands = true
+		basketball.launched = false
+	end
+end
+
+function shootthebasketball()
+basketball.launched = true
+end
+
+
+function _update()
+move_player()
+if basketball.launched == true then
+	basketball.x+=10
+	basketball.y+=10
+	else 
+		if basketball.inhands == true then
+		updatebasketballlocation()
+		end
+end
+end
+
+function _draw()
+cls()
+sspr(8,0,16,16,player.x,player.y,16,16)
+if drawbasketball == true then
+draw_basketball()
+end
+end
